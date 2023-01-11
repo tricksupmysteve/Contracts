@@ -11,7 +11,7 @@
  * Twitter: https://twitter.com/SURGEPROTOCOL
  */
 
-pragma solidity >=0.8.1 <0.9.0;
+pragma solidity 0.8.17;
 
 abstract contract ReentrancyGuard {
     uint256 private constant _NOT_ENTERED = 1;
