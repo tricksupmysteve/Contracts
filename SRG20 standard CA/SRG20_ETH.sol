@@ -182,6 +182,7 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
     uint256 public totalVolume = 0;
 
     //candlestick data
+    uint256 public constant PADDING = 10**18;
     uint256 public totalTx;
     mapping(uint256 => uint256) public txTimeStamp;
 
@@ -712,6 +713,6 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
     // Returns the Current Price of the Token in SRG
     function calculatePrice() public view returns (uint256) {
         require(liquidity > 0, "No Liquidity");
-        return liquidity / _balances[address(this)];
+        return liquidity * PADDING / _balances[address(this)];
     }
 }
