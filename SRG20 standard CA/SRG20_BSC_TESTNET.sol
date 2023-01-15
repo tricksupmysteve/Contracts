@@ -133,7 +133,7 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
     uint256 private constant _DECMULTIPLIER = 10**_decimals;
 
     //SRG pair data
-    address private constant SRG = 0x0ad2B0ea33D8440Be279119E5722856Ec4009265; //change this according to chain
+    address private constant SRG = 0x3816B271c3D89726e80f4c79EE303639d05999D0; //change this according to chain
     ISRG private constant SRGI = ISRG(SRG); //interface to interact with SRG
     IERC20 private constant SRGIE = IERC20(SRG); //interace to interact with SRG
 
@@ -197,10 +197,6 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
 
     //Frontrun Guard
     mapping(address => uint256) private _lastBuyBlock;
-
-    //Migration Wallet (if needed)
-    address public constant MIGRATION_WALLET =
-        0xc207cd3f61Da958AA6f4209C5f0a145C056B576f;
 
     // initialize supply
     constructor() {
@@ -398,10 +394,9 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
         // liquidity is set
         require(liquidity > 0, "The token has no liquidity");
 
-        // check if trading is open or whether the buying wallet is the migration one
+        // check if trading is open
         require(
-            block.timestamp >= TRADE_OPEN_TIME ||
-                msg.sender == MIGRATION_WALLET,
+            block.timestamp >= TRADE_OPEN_TIME,
             "Trading is not Open"
         );
 
