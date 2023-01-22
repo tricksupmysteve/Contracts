@@ -485,12 +485,13 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
         return _totalSupply - _balances[DEAD];
     }
 
-    function changeWalletLimit(uint256 newLimit) external onlyOwner {
+    function changeTxLimits(uint256 newLimit, uint256 newMaxTx) external onlyOwner {
         require(
-            newLimit >= _totalSupply / 100,
+            newLimit >= _totalSupply / 100 && newMaxTx >= _totalSupply/100,
             "New wallet limit should be at least 1% of total supply"
         );
         maxBag = newLimit;
+        maxTX = newMaxTx;
         emit MaxBagChanged(newLimit);
     }
 
