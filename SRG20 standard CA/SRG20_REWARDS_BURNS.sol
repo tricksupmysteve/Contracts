@@ -145,8 +145,8 @@ contract DividendDistributor is IDividendDistributor {
     uint256 public dividendsPerShare;
     uint256 public dividendsPerShareAccuracyFactor = 10**36;
 
-    uint256 public minPeriod = 60 minutes;
-    uint256 public minDistribution = 1 * (10**18);
+    uint256 public minPeriod = 15 minutes;
+    uint256 public minDistribution = 100 * (10**9);
 
     uint256 currentIndex;
 

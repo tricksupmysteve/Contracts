@@ -174,7 +174,8 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
     //trading parameters
     uint256 public liquidity = 10**5 * 10**_srgDecimals;
     uint256 public liqConst = liquidity * _totalSupply;
-    uint256 public constant TRADE_OPEN_TIME = 1673121600;
+    bool public tradeOpen = false;
+
 
     //volume trackers
     mapping(address => uint256) public indVol;
@@ -209,7 +210,6 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
         isTxLimitExempt[address(this)] = true;
         isTxLimitExempt[DEAD] = true;
         isTxLimitExempt[address(0)] = true;
-        //burn to be added here if needed
 
         emit Transfer(address(0), address(this), _totalSupply);
     }
@@ -337,18 +337,6 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
         return true;
     }
 
-    function _burn(address account, uint256 amount) internal virtual {
-        require(account != address(0), "SRG20: burn from the zero address");
-
-        uint256 accountBalance = _balances[account];
-        require(accountBalance >= amount, "SRG20: burn amount exceeds balance");
-        unchecked {
-            _balances[account] = accountBalance - amount;
-        }
-
-        emit Transfer(account, address(0), amount);
-    }
-
     function _spendAllowance(
         address owner,
         address spender,
@@ -397,7 +385,7 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
 
         // check if trading is open
         require(
-            block.timestamp >= TRADE_OPEN_TIME,
+            tradeOpen,
             "Trading is not Open"
         );
 
@@ -714,5 +702,10 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
     function calculatePrice() public view returns (uint256) {
         require(liquidity > 0, "No Liquidity");
         return liquidity * PADDING / _balances[address(this)];
+    }
+
+    function openTrading() external nonReentrant onlyOwner {
+        require(!tradeOpen, "You cannot disable trading after enabling!");
+        tradeOpen = true;
     }
 }
