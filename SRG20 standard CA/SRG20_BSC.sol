@@ -1,9 +1,11 @@
 //SPDX-License-Identifier: MIT
 
 /**
- * Contract: SRG20 Standard Token Template
- * Developed by: Heisenman
- * Team: t.me/ALBINO_RHINOOO, t.me/Heisenman, t.me/STFGNZ
+ * Contract: REACTOR FINANCE
+ * Original Contract Developed by: Heisenman (t.me/Heisenman)
+ * Website: 
+ * Telegram:
+ * Twitter:
  */
 
 pragma solidity 0.8.17;
@@ -127,13 +129,13 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
     event MaxBagChanged(uint256 newMaxBag);
 
     // token data
-    string private constant _name = "SRG20";
-    string private constant _symbol = "SRG20";
+    string private constant _name = "REACTOR FINANCE";
+    string private constant _symbol = "REFI";
     uint8 private constant _decimals = 9;
     uint256 private constant _DECMULTIPLIER = 10**_decimals;
 
     //SRG pair data
-    address private constant SRG = 0x9f19c8e321bD14345b797d43E01f0eED030F5Bff; //change this according to chain
+    address private constant SRG = 0xcD682EF09d07668d49A8103ddD65Ff54AebFbfDe; //change this according to chain
     ISRG private constant SRGI = ISRG(SRG); //interface to interact with SRG
     IERC20 private constant SRGIE = IERC20(SRG); //interace to interact with SRG
 
@@ -160,8 +162,8 @@ contract SRG20 is IERC20, Context, Ownable, ReentrancyGuard {
     uint256 public taxBalance = 0;
 
     //Tax wallets
-    address public teamWallet = 0xDa17D158bC42f9C29E626b836d9231bB173bab06;
-    address public treasuryWallet = 0xF526A924c406D31d16a844FF04810b79E71804Ef;
+    address public teamWallet = 0xb9A353eeF2290A2A82412eB543Df572E430C5da0;
+    address public treasuryWallet = 0x76bEaaf5Fcd2b171ACd8C4f12ee1e80d0A582A4a;
 
     // Tax Split
     uint256 public teamShare = 40;
